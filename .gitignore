@@ -1,0 +1,65 @@
+# Python bytecode files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables and secrets
+.env
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+build/
+*.egg-info/
+
+# Logs
+*.log
+*.out
+*.err
+
+# Media and static files
+/media/
+/staticfiles/
+
+# Database files
+db.sqlite3
+*.sqlite3
+
+# Django migrations
+*/migrations/__pycache__/
+*/migrations/*.pyc
+*/migrations/*.pyo
+*/migrations/*.log
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Coverage and test files
+htmlcov/
+*.cover
+*.coverage
+.cache
+.tox/
+nosetests.xml
+coverage.xml
+*.testdb
+*.pytest_cache/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Local settings
+local_settings.py
+
+# PyCharm
+*.iml
