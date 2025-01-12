@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from django_note_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('test-page/', views.test_function)
 ]
