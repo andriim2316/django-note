@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>Title</title>
+    {% endblock %}
+    <link rel="stylesheet" href="../../static/css/styles.css"> 
+</head>
+<header>
+    <h1>Welcome to Notes to-do web application</h1>
+</header>
+<body>
+{% block body %}
+    
+{% endblock %}
+</body>
+<footer>
+    <p>Developed by Andrii M &copy; {% now "Y" %}. All rights reserved</p>
+</footer>
+</html>

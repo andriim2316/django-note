@@ -1,0 +1,56 @@
+{% extends "note_app_templates/base.html" %}
+{% block title %}
+<title>My to do list</title>
+{% endblock %}
+{% block body %}
+    <div class="notes-container">
+     <div class="new-note">
+    <form>
+        <div>
+            <label for="task-name">Task name:</label>
+            <input type="text" id="task-name" name="task-name" placeholder="Enter task name" class="note-input" required />
+        </div>
+        <div>
+            <label for="assignee">Assignee:</label>
+            <input type="text" id="assignee" name="assignee" placeholder="Enter assignee name" class="note-input" required />
+        </div>
+        <div>
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority" class="note-select" required>
+                <option value="high">High</option>
+                <option value="normal">Normal</option>
+                <option value="low">Low</option>
+            </select>
+        </div>
+        <div>
+            <label for="deadline">Deadline:</label>
+            <input type="datetime-local" id="deadline" name="deadline" class="note-input" required />
+        </div>
+        <div>
+            <label for="status">Status:</label>
+            <select id="status" name="status" class="note-select" required>
+                <option value="not-started">Not Started</option>
+                <option value="in-progress">In Progress</option>
+                <option value="completed">Completed</option>
+                <option value="on-pause">On Pause</option>
+            </select>
+        </div>
+        <button type="submit" class="note-button">Add Task</button>
+    </form>
+</div>
+{% for task in tasks %}
+    <div class="note">
+        <h3>Task name: {{ task.name }}</h3>
+        <span>Asignee: {{ task.assignee }}</span><br>
+        {% if task.priority == "high" %}
+        <span class="high">Priority: {{ task.priority }}</span><br>
+    {% else %}
+        <span>Priority: {{ task.priority }}</span><br>
+    {% endif %}
+        <span>Deadline: {{ task.deadline }}</span><br>
+        <span>Created at: {{ task.created_at }}</span><br>
+        <span>Status: {{ task.status }}</span><br>
+    </div>
+{% endfor %}
+    </div>
+{% endblock %}

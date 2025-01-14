@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes to-do web application</title>
+    <link rel="stylesheet" href="../../static/css/styles.css"> 
+</head>
+<body>
+<h2>Welcome to note web-app</h2>
+{% for task in tasks %}
+    <div class="note">
+        <h3>Task name: {{ task.name }}</h3>
+        <span>Asignee: {{ task.assignee }}</span><br>
+        <span>Priority: {{ task.priority }}</span><br>
+        <span>Deadline: {{ task.deadline }}</span><br>
+        <span>Created at: {{ task.created_at }}</span><br>
+        <span>Status: {{ task.status }}</span><br>
+    </div>
+{% endfor %}
+</body>
+</html>

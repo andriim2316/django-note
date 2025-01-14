@@ -19,5 +19,6 @@ from django.urls import path
 from django_note_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test-page/', views.test_function)
+    path('test-page/', views.test_function),
+    path('all-tasks/', views.show_all_tasks)
 ]
