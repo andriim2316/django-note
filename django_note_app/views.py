@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django_note_app.models import Task
 from django_note_app.forms import TaskForm
@@ -26,4 +26,10 @@ class TaskUpdateView(UpdateView):
     model = Task
     form_class = TaskForm
     template_name = "note_app_templates/edit.html"
+    success_url = reverse_lazy('show_all_tasks')
+
+
+class TaskDeleteView(DeleteView):
+    model = Task
+    template_name = 'note_app_templates/delete_task.html'
     success_url = reverse_lazy('show_all_tasks')

@@ -9,7 +9,6 @@
     <div class="new-note">
         <form method="POST">
             {% csrf_token %}
-            
             <label>Task Name:</label>
             {{ form.name }}
 
@@ -45,6 +44,8 @@
             <p>Status: {{ task.status }}</p>
 
             <a href="{% url 'edit_task' task.id %}" class="note-button">Edit</a>
+
+            <a href="{% url 'delete_task' task.id %}" class="note-button" style="background-color: #d9534f;">Delete</a>
         </div>
     {% empty %}
         <p>No tasks available.</p>
