@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,16 +7,17 @@
     {% block title %}
     <title>Title</title>
     {% endblock %}
-    <link rel="stylesheet" href="../../static/css/styles.css"> 
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
+
 <header>
-    <h1>Welcome to Notes to-do web application</h1>
+    <h1>Welcome to Notes To-Do Web Application</h1>
 </header>
+
 <body>
-{% block body %}
-    
-{% endblock %}
+    {% block body %}{% endblock %}
 </body>
+
 <footer>
     <p>Developed by Andrii M &copy; {% now "Y" %}. All rights reserved</p>
 </footer>

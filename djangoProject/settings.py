@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'django_note_app'
 ]
 
@@ -124,7 +125,7 @@ STATIC_URL = '/static/'
 
 # Directory to store static files
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # Assuming you're using Django 3.1+ with pathlib
+    BASE_DIR / 'django_note_app/static',  # Assuming you're using Django 3.1+ with pathlib
 ]
 
 # Default primary key field type

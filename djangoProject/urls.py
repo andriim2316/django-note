@@ -17,8 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django_note_app import views
+from django_note_app.views import TaskListView, TaskUpdateView
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('test-page/', views.test_function),
-    path('all-tasks/', views.show_all_tasks)
+    path('', TaskListView.as_view(), name='show_all_tasks'),
+    path('edit/<int:pk>/', TaskUpdateView.as_view(), name='edit_task'),
 ]
