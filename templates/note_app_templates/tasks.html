@@ -1,0 +1,67 @@
+{% extends "note_app_templates/base.html" %}
+
+{% block title %}
+<title>My To-Do List</title>
+{% endblock %}
+
+{% block body %}
+<div class="notes-container">
+    <div class="new-note">
+        <form method="POST">
+            {% csrf_token %}
+            <label>Task Name:</label>
+            {{ form.name }}
+
+            <label>Assignee:</label>
+            {{ form.assignee }}
+
+            <label>Priority:</label>
+            {{ form.priority }}
+
+            <label>Deadline:</label>
+            {{ form.deadline }}
+
+            <label>Status:</label>
+            {{ form.status }}
+
+            <button type="submit" class="note-button">Add Task</button>
+        </form>
+    </div>
+
+    {% for task in tasks %}
+        <div class="note">
+            <h3>{{ task.name }}</h3>
+            <p>Assignee: {{ task.assignee }}</p>
+            <p>
+                Priority:
+                {% if task.priority == "H" %}
+                    <span class="high">High</span>
+                {% elif task.priority == "M" %}
+                    <span class="medium">Medium</span>
+                {% elif task.priority == "L" %}
+                    <span class="low">Low</span>
+                {% else %}
+                    {{ task.priority }}
+                {% endif %}
+            </p>
+            <p>Deadline: {{ task.deadline }}</p>
+            <p>Status: 
+                {% if task.status == "P" %}
+                    Pending
+                {% elif task.status == "IP" %}
+                    In Progress
+                {% elif task.status == "C" %}
+                    Completed
+                {% else %}
+                    {{ task.status }}
+                {% endif %}
+            </p>
+
+            <a href="{% url 'edit_task' task.id %}" class="note-button">Edit</a>
+            <a href="{% url 'delete_task' task.id %}" class="note-button" style="background-color: #d9534f;">Delete</a>
+        </div>
+    {% empty %}
+        <p>No tasks available.</p>
+    {% endfor %}
+</div>
+{% endblock %}
