@@ -34,17 +34,30 @@
             <p>Assignee: {{ task.assignee }}</p>
             <p>
                 Priority:
-                {% if task.priority == "high" %}
-                    <span class="high">{{ task.priority }}</span>
+                {% if task.priority == "H" %}
+                    <span class="high">High</span>
+                {% elif task.priority == "M" %}
+                    <span class="medium">Medium</span>
+                {% elif task.priority == "L" %}
+                    <span class="low">Low</span>
                 {% else %}
                     {{ task.priority }}
                 {% endif %}
             </p>
             <p>Deadline: {{ task.deadline }}</p>
-            <p>Status: {{ task.status }}</p>
+            <p>Status: 
+                {% if task.status == "P" %}
+                    Pending
+                {% elif task.status == "IP" %}
+                    In Progress
+                {% elif task.status == "C" %}
+                    Completed
+                {% else %}
+                    {{ task.status }}
+                {% endif %}
+            </p>
 
             <a href="{% url 'edit_task' task.id %}" class="note-button">Edit</a>
-
             <a href="{% url 'delete_task' task.id %}" class="note-button" style="background-color: #d9534f;">Delete</a>
         </div>
     {% empty %}
