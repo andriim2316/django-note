@@ -1,67 +1,95 @@
 {% extends "note_app_templates/base.html" %}
+{% load static %}
 
 {% block title %}
 <title>My To-Do List</title>
 {% endblock %}
 
 {% block body %}
-<div class="notes-container">
-    <div class="new-note">
-        <form method="POST">
-            {% csrf_token %}
-            <label>Task Name:</label>
-            {{ form.name }}
+<div class="container py-4">
 
-            <label>Assignee:</label>
-            {{ form.assignee }}
 
-            <label>Priority:</label>
-            {{ form.priority }}
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white text-center fw-bold">Add New Task</div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Task Name:</label>
+                    <input type="text" name="{{ form.name.name }}" class="form-control" value="{{ form.name.value }}" placeholder="Enter task name">
+                    </div>
 
-            <label>Deadline:</label>
-            {{ form.deadline }}
+                <div class="mb-3">
+                    <label class="form-label">Assignee:</label>
+                    <input type="text" name="{{ form.assignee.name }}" class="form-control" value="{{ form.assignee.value }}" placeholder="Assign to someone">
+                </div>
 
-            <label>Status:</label>
-            {{ form.status }}
+                <div class="mb-3">
+                    <label class="form-label">Priority:</label>
+                        <select name="{{ form.priority.name }}" class="form-select">
+                        {% for choice in form.priority.field.choices %}
+                            <option value="{{ choice.0 }}" {% if choice.0 == form.priority.value %}selected{% endif %}>
+                                {{ choice.1 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-            <button type="submit" class="note-button">Add Task</button>
-        </form>
+                <div class="mb-3">
+                    <label class="form-label">Deadline:</label>
+                    <input type="date" name="{{ form.deadline.name }}" class="form-control" value="{{ form.deadline.value }}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Status:</label>
+                    <select name="{{ form.status.name }}" class="form-select">
+                        {% for choice in form.status.field.choices %}
+                            <option value="{{ choice.0 }}" {% if choice.0 == form.status.value %}selected{% endif %}>
+                                {{ choice.1 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">Add Task</button>
+            </form>
+        </div>
     </div>
 
-    {% for task in tasks %}
-        <div class="note">
-            <h3>{{ task.name }}</h3>
-            <p>Assignee: {{ task.assignee }}</p>
-            <p>
-                Priority:
-                {% if task.priority == "H" %}
-                    <span class="high">High</span>
-                {% elif task.priority == "M" %}
-                    <span class="medium">Medium</span>
-                {% elif task.priority == "L" %}
-                    <span class="low">Low</span>
-                {% else %}
-                    {{ task.priority }}
-                {% endif %}
-            </p>
-            <p>Deadline: {{ task.deadline }}</p>
-            <p>Status: 
-                {% if task.status == "P" %}
-                    Pending
-                {% elif task.status == "IP" %}
-                    In Progress
-                {% elif task.status == "C" %}
-                    Completed
-                {% else %}
-                    {{ task.status }}
-                {% endif %}
-            </p>
 
-            <a href="{% url 'edit_task' task.id %}" class="note-button">Edit</a>
-            <a href="{% url 'delete_task' task.id %}" class="note-button" style="background-color: #d9534f;">Delete</a>
-        </div>
-    {% empty %}
-        <p>No tasks available.</p>
-    {% endfor %}
+    <div class="row g-3">
+        {% for task in tasks %}
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title">{{ task.name }}</h5>
+                        <p class="card-text"><strong>Assignee:</strong> {{ task.assignee }}</p>
+                        <p class="card-text"><strong>Deadline:</strong> {{ task.deadline }}</p>
+
+                        <p class="card-text">
+                            <strong>Priority:</strong> 
+                            <span class="badge {% if task.priority == 'H' %}bg-danger{% elif task.priority == 'M' %}bg-warning text-dark{% else %}bg-success{% endif %}">
+                                {{ task.get_priority_display }}
+                            </span>
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Status:</strong> 
+                            <span class="badge {% if task.status == 'P' %}bg-secondary{% elif task.status == 'IP' %}bg-info text-dark{% else %}bg-success{% endif %}">
+                                {{ task.get_status_display }}
+                            </span>
+                        </p>
+
+                        <div class="d-grid gap-2 mt-3">
+                            <a href="{% url 'edit_task' task.id %}" class="btn btn-outline-primary btn-sm">Edit</a>
+                            <a href="{% url 'delete_task' task.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center text-muted">No tasks available. Add your first task above!</p>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
