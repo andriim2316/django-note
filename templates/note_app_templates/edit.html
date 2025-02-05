@@ -1,0 +1,33 @@
+{% extends "note_app_templates/base.html" %}
+
+{% block title %}
+<title>Edit Task</title>
+{% endblock %}
+
+{% block body %}
+<div class="new-note">
+    <h2>Edit Task</h2>
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Task Name:</label>
+        {{ form.name }}
+
+        <label>Assignee:</label>
+        {{ form.assignee }}
+
+        <label>Priority:</label>
+        {{ form.priority }}
+
+        <label>Deadline:</label>
+        {{ form.deadline }}
+
+        <label>Status:</label>
+        {{ form.status }}
+
+        <button type="submit" class="note-button">Save Changes</button>
+    </form>
+
+    <a href="{% url 'show_all_tasks' %}" class="note-button">Back to Tasks</a>
+</div>
+{% endblock %}  
